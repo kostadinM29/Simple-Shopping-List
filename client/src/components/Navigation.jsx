@@ -27,15 +27,19 @@ const Navigation = () =>
                             <NavLink
                                 to='/'
                                 className={({ isActive }) => getNavLinkClassName(isActive)}
-                                aria-current='page'
                             >Home</NavLink>
                         </li>
-                        <span>|</span>
                         {user
                             ?
                             <>
                                 <li>
-                                    <h2>Hello, {user.decodedToken.email}</h2>
+                                    <NavLink
+                                        to='/categories'
+                                        className={({ isActive }) => getNavLinkClassName(isActive)}
+                                    >Categories</NavLink>
+                                </li>
+                                <li>
+                                    <h2> | Hello, {user.decodedToken.email}</h2>
                                 </li>
                                 <li>
                                     <button

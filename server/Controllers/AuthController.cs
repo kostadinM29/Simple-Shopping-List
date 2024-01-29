@@ -36,7 +36,6 @@ namespace server.Controllers
 
             if (user != null && await userManager.CheckPasswordAsync(user, model.Password))
             {
-                // Create claims for the user
                 Claim[]? claims =
                 [
                     new Claim(JwtRegisteredClaimNames.Sub, user.Id),
@@ -44,7 +43,6 @@ namespace server.Controllers
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                 ];
 
-                // Create the JWT token
                 SymmetricSecurityKey? key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("VerySecretTestingKeyAAAAAAAAAAAAAAAAAAAAAAAAA")); 
                 SigningCredentials? credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
                 JwtSecurityToken? token = new JwtSecurityToken(

@@ -1,6 +1,5 @@
 using System.Text;
 
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +7,8 @@ using Microsoft.IdentityModel.Tokens;
 
 using server.Data;
 using server.Data.Models;
+using server.Services;
+using server.Services.Interfaces;
 
 namespace server
 {
@@ -18,7 +19,6 @@ namespace server
             WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
             builder.Services.AddControllers();
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -30,8 +30,12 @@ namespace server
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
+            builder.Services.AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                }).AddJwtBearer(options =>
                 {
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
@@ -42,6 +46,14 @@ namespace server
                         ValidIssuer = "YourIssuer",
                         ValidAudience = "YourAudience",
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("VerySecretTestingKeyAAAAAAAAAAAAAAAAAAAAAAAAA"))
+                    };
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnMessageReceived = context =>
+                        {
+                            context.Token = context.Request.Headers.Authorization;
+                            return Task.CompletedTask;
+                        }
                     };
                 });
 
@@ -67,18 +79,18 @@ namespace server
                 });
             });
 
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
+
             WebApplication? app = builder.Build();
 
             // Configure the HTTP request pipeline.
-
             app.UseHttpsRedirection();
 
+            app.UseCors();
             app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllers();
-
-            app.UseCors();
 
             app.Run();
         }

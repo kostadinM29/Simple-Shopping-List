@@ -6,6 +6,7 @@ import Home from './components/Home';
 import Login from './components/Login';
 import Navigation from './components/Navigation';
 import Register from './components/Register';
+import CategoriesList from './components/CategoryForm';
 
 const App = () =>
 {
@@ -17,6 +18,7 @@ const App = () =>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/categories" element={<CategoriesList />} />
       </Routes>
     </main>
   );
