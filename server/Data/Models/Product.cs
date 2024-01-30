@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace server.Data.Models
 {
@@ -14,6 +15,7 @@ namespace server.Data.Models
         [ForeignKey(nameof(Category))]
         public int CategoryId { get; set; }
 
+        [JsonIgnore]
         public virtual Category Category { get; set; }
     }
 }

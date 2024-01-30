@@ -1,12 +1,15 @@
-import { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
+import Loading from "../components/Loading";
+
 
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) =>
 {
     const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
     useEffect(() =>
@@ -19,6 +22,8 @@ export const AuthProvider = ({ children }) =>
 
             setUser({ token: storedToken, decodedToken });
         }
+
+        setLoading(false);
     }, []);
 
     const login = (token) =>
@@ -40,6 +45,11 @@ export const AuthProvider = ({ children }) =>
 
         navigate('/');
     };
+
+    if (loading)
+    {
+        return <Loading />;
+    }
 
     return (
         <AuthContext.Provider value={{ user, login, logout }}>

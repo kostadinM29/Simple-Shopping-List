@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+
 import useAuthenticatedAxios from '../hooks/useAuthenticatedAxios';
 
-const CategoryForm = () =>
+const Category = () =>
 {
     const [categories, setCategories] = useState([]);
     const [newCategory, setNewCategory] = useState('');
@@ -75,7 +75,9 @@ const CategoryForm = () =>
     return (
         <div className="container mx-auto mt-8">
             <h2 className="text-2xl font-bold mb-4">Categories</h2>
-
+            <p className='mb-2 text-red-500'>
+                *Please keep in mind that when you delete a category all products using that category will also be deleted.
+            </p>
             <form onSubmit={handleAddCategory} className="mb-4">
                 <div className="flex">
                     <input
@@ -136,4 +138,4 @@ const CategoryForm = () =>
     );
 };
 
-export default CategoryForm;
+export default Category;
