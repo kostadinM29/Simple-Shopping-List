@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
 using server.Data.Models;
-using server.Models;
+using server.Models.RequestModels;
 
 namespace server.Controllers
 {
@@ -16,7 +16,7 @@ namespace server.Controllers
     public class AuthController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager) : ControllerBase
     {
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterModel model)
+        public async Task<IActionResult> Register([FromBody] RegisterRequestModel model)
         {
             ApplicationUser user = new ApplicationUser { UserName = model.Email, Email = model.Email };
             IdentityResult result = await userManager.CreateAsync(user, model.Password);
@@ -30,7 +30,7 @@ namespace server.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginModel model)
+        public async Task<IActionResult> Login([FromBody] LoginRequestModel model)
         {
             ApplicationUser user = await userManager.FindByEmailAsync(model.Email);
 

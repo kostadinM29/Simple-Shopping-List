@@ -2,7 +2,7 @@
 
 namespace server.Models
 {
-    public class RegisterModel
+    public class RegisterRequestModel
     {
         [Required]
         [EmailAddress]
