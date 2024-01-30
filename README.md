@@ -8,7 +8,7 @@
 
 
 TODOs:
-Add error handling in the FE and BE
-Use redux instead of context in FE
-Log in user when they register
-Make code more consistent
+- Add error handling in the FE and BE
+- Use redux instead of context in FE
+- Log in user when they register
+- Make code more consistent
