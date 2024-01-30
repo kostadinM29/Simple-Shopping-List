@@ -7,6 +7,8 @@ import Navigation from './components/Navigation';
 import Register from './components/Register';
 import Category from './components/Category';
 import Product from './components/Product';
+import ShoppingList from './components/ShoppingList';
+import ShoppingListDetails from './components/ShoppingListDetails';
 
 const App = () =>
 {
@@ -20,6 +22,8 @@ const App = () =>
         <Route path="/register" element={<Register />} />
         <Route path="/categories" element={<Category />} />
         <Route path="/products" element={<Product />} />
+        <Route path="/shopping-lists" element={<ShoppingList />} />
+        <Route path="/shopping-lists/:id" element={<ShoppingListDetails />} />
       </Routes>
     </main>
   );

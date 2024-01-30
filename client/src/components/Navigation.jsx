@@ -45,6 +45,12 @@ const Navigation = () =>
                                     >Products</NavLink>
                                 </li>
                                 <li>
+                                    <NavLink
+                                        to='/shopping-lists'
+                                        className={({ isActive }) => getNavLinkClassName(isActive)}
+                                    >Shopping Lists</NavLink>
+                                </li>
+                                <li>
                                     <h2> | Hello, {user.decodedToken.email}</h2>
                                 </li>
                                 <li>

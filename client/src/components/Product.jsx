@@ -43,10 +43,7 @@ const Product = () =>
         {
             await axiosInstance.post('add-product', { name: newProduct, categoryId: selectedCategoryId });
             setNewProduct('');
-            setTimeout(() =>
-            {
-                handleGetProducts();
-            }, 500);
+            handleGetProducts();
         } catch (error)
         {
             console.error('Error adding product:', error);
